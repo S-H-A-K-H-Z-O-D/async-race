@@ -4,7 +4,7 @@ import logo from "../assets/logo.png"
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className="px-48" >
+        <div className="px-4 max-w-[1500px] mx-auto" >
             <div className="flex items-center justify-between py-10">
                 <div className="flex flex-col space-y-3">
                     <Button text={"GARAGE"}/>

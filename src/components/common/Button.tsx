@@ -2,12 +2,20 @@
 
 interface ButtonProps {
     text: string;
+    className: string;
+    type?: string | undefined;
+    onClick: () => void;
+    disabled: boolean;
 }
 
-const Button = ({text}:ButtonProps) => {
+const Button = ({text, className, onClick, disabled, type='submit'}:ButtonProps) => {
     return (
         // eslint-disable-next-line react/react-in-jsx-scope
-        <button className="border-t-neutral-50">
+        <button
+            onClick={onClick}
+            disabled={disabled}
+            type={type}
+            className={`bg-blue-900 px-6 py-2 rounded block ${className}`}>
             {text}
         </button>
     );
