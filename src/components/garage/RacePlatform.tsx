@@ -4,7 +4,7 @@
 import React, {useEffect, useState} from "react";
 import Button from "../common/Button.tsx";
 import { RacePlatformProps } from "../common/data.ts";
-import {useDriveCarMutation, useRemoveCarMutation} from "../../api/api.ts";
+import {useCreateWinnerMutation, useDriveCarMutation, useRemoveCarMutation} from "../../api/api.ts";
 import SvgComponent from "../common/CarSvg.tsx";
 import Play from "./parameters/Play.tsx";
 import Pagination from "../common/Pagination.tsx";
@@ -22,16 +22,17 @@ const RacePlatform = ({ data, setSelectedCar, refetch, totalCount, setCurrentPag
         {id: 0, time: 6000}
     ]
     const beforeRaceTime = [
-        {id: 0, time: 3000},
-        {id: 0, time: 4000},
-        {id: 0, time: 3000},
-        {id: 0, time: 5000},
-        {id: 0, time: 2000},
-        {id: 0, time: 3000},
-        {id: 0, time: 6000}
+        {id: 0, time: 3000, name: '', color: '', wins: 1},
+        {id: 0, time: 4000, name: '', color: '', wins: 1},
+        {id: 0, time: 3000, name: '', color: '', wins: 1},
+        {id: 0, time: 5000, name: '', color: '', wins: 1},
+        {id: 0, time: 2000, name: '', color: '', wins: 1},
+        {id: 0, time: 3000, name: '', color: '', wins: 1},
+        {id: 0, time: 6000, name: '', color: '', wins: 1}
     ]
     const [removeCarFn] = useRemoveCarMutation()
     const [driveCarFn] = useDriveCarMutation()
+    const [createWinnerFn] = useCreateWinnerMutation()
     const [beforeRace, setBeforeRace] = useState(beforeRaceTime)
     const [racingCars, setRacingCars] = useState(raceTime)
 
@@ -50,21 +51,40 @@ const RacePlatform = ({ data, setSelectedCar, refetch, totalCount, setCurrentPag
 
     useEffect(() => {
         if(data){
-
+            console.log(data)
             for(let i=0; i<data.length; i++) {
                 driveCarFn({status: 'started', id: data[i].id}).then((res) => {
-
                     beforeRaceTime[i].id = data[i].id
+                    beforeRaceTime[i].name = data[i].name
+                    beforeRaceTime[i].color = data[i].color
                     beforeRaceTime[i].time = res.data.distance/res.data.velocity
                 })
+                driveCarFn({status: 'drive', id: data[i].id})
             }
             setBeforeRace(beforeRaceTime)
         }
     }, [data]);
 
     const onRace = () => {
-        setRacingCars(beforeRace)
-    }
+
+        setRacingCars(beforeRace);
+        const sortedBeforeRace = beforeRace.slice()
+            .sort((a, b) => a.time - b.time);
+
+        sortedBeforeRace.forEach((item, index) => {
+
+            const firstWinner = {
+                id: item.id,
+                name: item.name,
+                color: item.color,
+                time: item.time / 1000,
+                wins: index + 1
+            };
+
+            createWinnerFn(firstWinner);
+        });
+    };
+
 
     const onReset = () => {
         setRacingCars([].fill(7))

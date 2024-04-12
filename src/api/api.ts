@@ -46,7 +46,7 @@ export const carApi = createApi({
             })
         }),
         getWinners: builder.query({
-            query: ({page}) => `/winners?_page=${page}&_limit=7`,
+            query: ({page}) => `/winners?_page=${page}&_limit=10`,
             transformResponse(baseQueryReturnValue, meta) {
                 const totalCount = (meta?.response?.headers.get("X-Total-Count"));
                 return {
@@ -56,7 +56,14 @@ export const carApi = createApi({
             }
         }),
         getSingleWinner: builder.query({
-            query: ({id}) => `/winner/${id}`,
+            query: ({id}) => `/winners/${id}`,
+        }),
+        createWinner: builder.mutation({
+            query: body => ({
+                url: '/winners',
+                method: 'POST',
+                body
+            })
         }),
     }),
 })
@@ -65,6 +72,7 @@ export const {
     useGetSingleWinnerQuery,
     useGetCarsQuery,
     useGetWinnersQuery,
+    useCreateWinnerMutation,
     useCreateCarMutation,
     useUpdateCarMutation,
     useRemoveCarMutation,

@@ -32,21 +32,26 @@ const Winners = () => {
                     <tbody>
                     {data && data?.map((item, i) => (
                         <tr>
-                            <td className="px-4 py-2">{i+1}</td>
-                            <td className="py-10 relative px-4">
-                                <div  className="rotate-90 absolute top-1 left-0">
-                                    <SvgComponent color={"#fff"}/>
+                            <td className="px-4 py-4">{i+1}</td>
+                            <td className="relative px-4">
+                                <div  className="rotate-90 absolute top-[-12px] left-0">
+                                    <SvgComponent color={item?.color}/>
                                 </div>
                             </td>
                             <td className=" px-4 py-2">{item.id}</td>
                             <td className=" px-4 py-2">{item.wins}</td>
-                            <td className=" px-4 py-2">{item.time}</td>
+                            <td className=" px-4 py-2">{item.time.toFixed(2)}</td>
                         </tr>
                     ))}
                     </tbody>
                 </table>
             </div>
-            <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalCount={totalCount}/>
+            <Pagination
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                totalCount={totalCount}
+                limit={10}
+            />
         </>
     );
 };

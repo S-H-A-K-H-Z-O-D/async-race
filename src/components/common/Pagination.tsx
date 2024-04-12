@@ -4,10 +4,10 @@
 import {FaAngleLeft, FaAngleRight} from "react-icons/fa6";
 import React from "react";
 
-const Pagination = ({totalCount, currentPage, setCurrentPage}) => {
+const Pagination = ({totalCount, currentPage, setCurrentPage, limit=7}) => {
 
 
-    const totalPages = Math.ceil(totalCount / 7);
+    const totalPages = Math.ceil(totalCount / limit);
 
     const handlePreviousPage = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
