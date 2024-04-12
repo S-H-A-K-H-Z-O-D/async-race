@@ -17,7 +17,7 @@ const Winners = () => {
 
     return (
         <>
-            <div className="winners text-center text-xl font-bold py-4 bg-blue-500 text-white">Winners in Progress</div>
+            <div className="winners text-center font-bold py-3 text-4xl bg-blue-500 text-white">Winners</div>
             <div className="w-full mt-10">
                 <table className="table-auto w-full shadow-md rounded-lg">
                     <thead >

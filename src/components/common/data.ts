@@ -29,3 +29,10 @@ export interface RacePlatformProps {
     setCurrentPage: Dispatch<SetStateAction<number>>
     currentPage: number
 }
+
+// WinModal.tsx
+export interface ModalProps {
+    isOpen: boolean
+    onClose: () => void
+    modalInfo: {name: string, time: number}
+}

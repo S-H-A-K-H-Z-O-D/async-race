@@ -65,6 +65,12 @@ export const carApi = createApi({
                 body
             })
         }),
+        removeWinner: builder.mutation({
+            query: (id) => ({
+                url: `/winners/${id}`,
+                method: 'DELETE'
+            })
+        }),
     }),
 })
 
@@ -72,6 +78,7 @@ export const {
     useGetSingleWinnerQuery,
     useGetCarsQuery,
     useGetWinnersQuery,
+    useRemoveWinnerMutation,
     useCreateWinnerMutation,
     useCreateCarMutation,
     useUpdateCarMutation,

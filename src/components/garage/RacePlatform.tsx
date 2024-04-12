@@ -4,11 +4,17 @@
 import React, {useEffect, useState} from "react";
 import Button from "../common/Button.tsx";
 import { RacePlatformProps } from "../common/data.ts";
-import {useCreateWinnerMutation, useDriveCarMutation, useRemoveCarMutation} from "../../api/api.ts";
+import {
+    useCreateWinnerMutation,
+    useDriveCarMutation,
+    useRemoveCarMutation,
+    useRemoveWinnerMutation
+} from "../../api/api.ts";
 import SvgComponent from "../common/CarSvg.tsx";
 import Play from "./parameters/Play.tsx";
 import Pagination from "../common/Pagination.tsx";
 import finish from "../../assets/finish.jpg"
+import WinModal from "../common/WinModal.tsx";
 
 const RacePlatform = ({ data, setSelectedCar, refetch, totalCount, setCurrentPage, currentPage }: RacePlatformProps) => {
 
@@ -33,8 +39,13 @@ const RacePlatform = ({ data, setSelectedCar, refetch, totalCount, setCurrentPag
     const [removeCarFn] = useRemoveCarMutation()
     const [driveCarFn] = useDriveCarMutation()
     const [createWinnerFn] = useCreateWinnerMutation()
+    const [removeWinnerFn] = useRemoveWinnerMutation()
     const [beforeRace, setBeforeRace] = useState(beforeRaceTime)
     const [racingCars, setRacingCars] = useState(raceTime)
+    const [isOpen, setIsOpen] = useState(false)
+    const [modalInfo, setModalInfo] = useState('')
+
+    const onClose = () => setIsOpen(false)
 
 
     const onRemoveCar = async (id: number) => {
@@ -83,6 +94,9 @@ const RacePlatform = ({ data, setSelectedCar, refetch, totalCount, setCurrentPag
 
             createWinnerFn(firstWinner);
         });
+        setModalInfo(sortedBeforeRace[0])
+        setTimeout(() => setIsOpen(true), sortedBeforeRace[beforeRace.length-1].time);
+        removeWinnerFn(1)
     };
 
 
@@ -137,6 +151,7 @@ const RacePlatform = ({ data, setSelectedCar, refetch, totalCount, setCurrentPag
                 setCurrentPage={setCurrentPage}
                 currentPage={currentPage}
             />
+            <WinModal isOpen={isOpen} onClose={onClose} modalInfo={modalInfo}/>
         </div>
     );
 };
