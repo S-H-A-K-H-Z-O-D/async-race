@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import Button from "../../common/Button.tsx";
 import {useUpdateCarMutation} from "../../../api/api.ts";
 import {useForm} from "react-hook-form";
@@ -52,7 +55,8 @@ const UpdateCar = ({refetch, selectedCar}) => {
                 <input
                     type="text"
                     name="name"
-                    className="bg-blue-200 text-black w-48 px-3 py-1 rounded"
+                    className="w-48 px-3 py-2 bg-transparent outline-0
+                    input-shadow input-focus-shadow rounded"
                     placeholder="Type car brand"
                     onChange={handleChange}
                     value={formData.name}
@@ -62,12 +66,12 @@ const UpdateCar = ({refetch, selectedCar}) => {
             </div>
             <input
                 name="color"
-                className="bg-blue-200 text-black p-0 rounded"
+                className="bg-blue-200 text-black p-0 rounded w-7 h-10"
                 type="color"
                 value={formData.color}
                 onChange={handleChange}
             />
-            <Button text="Update"/>
+            <Button text="UPDATE"/>
         </form>
     )
 }

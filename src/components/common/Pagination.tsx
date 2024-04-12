@@ -1,19 +1,13 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import {FaAngleLeft, FaAngleRight} from "react-icons/fa6";
-import React, {useEffect, useState} from "react";
+import React from "react";
 
-const Pagination = ({data, setPaginatedData}) => {
+const Pagination = ({totalCount, currentPage, setCurrentPage}) => {
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 7;
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    // const paginatedData = data?.slice(startIndex, endIndex);
 
-    useEffect(() => {
-        setPaginatedData(data?.slice(startIndex, endIndex))
-    }, [startIndex, data]);
-
-    const totalPages = Math.ceil(data?.length / itemsPerPage);
+    const totalPages = Math.ceil(totalCount / 7);
 
     const handlePreviousPage = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));

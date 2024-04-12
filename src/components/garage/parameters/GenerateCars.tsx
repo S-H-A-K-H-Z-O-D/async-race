@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import Button from "../../common/Button.tsx";
 import {useCreateCarMutation} from "../../../api/api.ts";
 
@@ -34,12 +37,12 @@ const GenerateCars = ({refetch}) => {
         return cars;
     };
 
-    const onGenerate = () => {
+    const onGenerate = async () => {
         const cars = generateCars();
         cars.forEach(car => {
             generateCarsFn(car);
         });
-        refetch()
+        setTimeout(() => refetch(), 1000)
     };
 
     return (

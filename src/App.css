@@ -12,3 +12,15 @@
     background: url("./assets/background.jpg") no-repeat center;
     background-size: cover;
 }
+
+.shadow-white:hover {
+    box-shadow: inset 10px 10px 50px rgba(255, 255, 255, 0.3);
+}
+
+.input-shadow {
+    box-shadow: inset 10px 10px 50px rgba(255, 255, 255, 0.5);
+}
+
+.input-focus-shadow:focus {
+    box-shadow: inset 10px 10px 50px rgba(255, 255, 255, 0.7);
+}

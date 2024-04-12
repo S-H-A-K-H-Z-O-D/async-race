@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: "http://127.0.0.1:3000/",
+    baseUrl: "http://127.0.0.1:3000"
 });
 
 export const carApi = createApi({
@@ -9,7 +9,15 @@ export const carApi = createApi({
     baseQuery,
     endpoints: (builder) => ({
         getCars: builder.query({
-            query: () => `garage`,
+            query: ({page}) => `/garage?_page=${page}&_limit=7`,
+            transformResponse(baseQueryReturnValue, meta) {
+                console.log(baseQueryReturnValue)
+                const totalCount = (meta?.response?.headers.get("X-Total-Count"));
+                return {
+                    totalCount: totalCount ? Number(totalCount) : 0,
+                    data: baseQueryReturnValue
+                };
+            }
         }),
         createCar: builder.mutation({
             query: body => ({
@@ -32,10 +40,9 @@ export const carApi = createApi({
             })
         }),
         driveCar: builder.mutation({
-            query: ({body, id}) => ({
-                url: `/engine/${id}`,
-                method: 'PATCH',
-                body
+            query: ({status, id}) => ({
+                url: `/engine?id=${id}&status=${status}`,
+                method: 'PATCH'
             })
         }),
     }),

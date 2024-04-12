@@ -1,9 +1,12 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import * as React from "react"
 const SvgComponent = ({color}) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width={80}
-        height={70}
+        width={100}
+        height={80}
         viewBox="0 0 1920 1920"
     >
         <g fill={color}>

@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import {Dispatch, SetStateAction} from "react";
 
 export const schema = yup.object({
     name: yup.string().required('Car brand is required')
@@ -21,7 +22,10 @@ export interface CarData {
 
 export interface RacePlatformProps {
     data: CarData[]
-    setSelectedCar: (id:number) => number
+    setSelectedCar: Dispatch<SetStateAction<number>>
     selectedCar: number
     refetch: () => void
+    totalCount: number | undefined
+    setCurrentPage: Dispatch<SetStateAction<number>>
+    currentPage: number
 }
