@@ -45,11 +45,26 @@ export const carApi = createApi({
                 method: 'PATCH'
             })
         }),
+        getWinners: builder.query({
+            query: ({page}) => `/winners?_page=${page}&_limit=7`,
+            transformResponse(baseQueryReturnValue, meta) {
+                const totalCount = (meta?.response?.headers.get("X-Total-Count"));
+                return {
+                    totalCount: totalCount ? Number(totalCount) : 0,
+                    data: baseQueryReturnValue
+                };
+            }
+        }),
+        getSingleWinner: builder.query({
+            query: ({id}) => `/winner/${id}`,
+        }),
     }),
 })
 
 export const {
+    useGetSingleWinnerQuery,
     useGetCarsQuery,
+    useGetWinnersQuery,
     useCreateCarMutation,
     useUpdateCarMutation,
     useRemoveCarMutation,
