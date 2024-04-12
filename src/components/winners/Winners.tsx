@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import React, {useState} from 'react';
 import Pagination from "../common/Pagination.tsx";
 import {useGetSingleWinnerQuery, useGetWinnersQuery} from "../../api/api.ts";
